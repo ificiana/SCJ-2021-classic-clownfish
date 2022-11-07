@@ -28,15 +28,14 @@ class HighScoreSubMenu(Menu):
 
     def render(self, term: Interface) -> str:
         """Render the highscores."""
-        rendered = []
-        rendered.append(term.move_down(1))
+        rendered = [term.move_down(1)]
         for i, highscore in enumerate(self.highscores):
             color = term.webgrey
             if i == 0:
                 color = term.color_rgb(215, 190, 105)
-            if i == 1:
+            elif i == 1:
                 color = term.color_rgb(192, 192, 192)
-            if i == 2:
+            elif i == 2:
                 color = term.color_rgb(169, 113, 66)
 
             rendered.append(
@@ -45,7 +44,10 @@ class HighScoreSubMenu(Menu):
                 + f'{highscore["Moves"]} moves / {highscore["Time"]} seconds'
             )
 
-        rendered.append(term.move_yx(term.height - 3, 4) + 'Press enter to play this puzzle')
+        rendered.append(
+            f'{term.move_yx(term.height - 3, 4)}Press enter to play this puzzle'
+        )
+
         return '\n'.join(rendered)
 
     def click(self, term: Interface) -> Menu:

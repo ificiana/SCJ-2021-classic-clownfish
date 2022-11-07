@@ -24,7 +24,7 @@ def join(row: List[List[str]]) -> List[str]:
 
 def bordered(lines: List[str]) -> List[str]:
     """Put a border after every line"""
-    return [line + '│' for line in lines]
+    return [f'{line}│' for line in lines]
 
 
 @dataclass
@@ -224,19 +224,20 @@ class Puzzle:
         print(hash_list)
         iters = random.randint(difficulty // 2, difficulty)
 
-        for i in range(iters):
+        for _ in range(iters):
             # get the piece to move
             axis = random.choice([0, 1])
             incr = random.choice([1, -1])
             index = clear_id.copy()
-            if clear_id[axis] + incr in range(0, self.dim[axis]):
-                index[axis] = clear_id[axis] + incr
-            else:
-                index[axis] = clear_id[axis] - incr
+            index[axis] = (
+                clear_id[axis] + incr
+                if clear_id[axis] + incr in range(self.dim[axis])
+                else clear_id[axis] - incr
+            )
 
             # swap values
             hash_list[index[1]][index[0]], hash_list[clear_id[1]][clear_id[0]] \
-                = hash_list[clear_id[1]][clear_id[0]], hash_list[index[1]][index[0]]
+                    = hash_list[clear_id[1]][clear_id[0]], hash_list[index[1]][index[0]]
             clear_id = index
             print(hash_list)
         for v, row in enumerate(self.rows):

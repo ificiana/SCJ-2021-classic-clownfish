@@ -32,7 +32,7 @@ class ChooseFile(Menu):
         self.files = []
         for item in os.listdir(self.current_dir):
             if os.path.isdir(os.path.join(self.current_dir, item)):
-                self.dirs.append(item + '/')
+                self.dirs.append(f'{item}/')
 
             else:
                 self.files.append(item)

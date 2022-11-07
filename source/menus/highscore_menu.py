@@ -23,7 +23,7 @@ class HighScoreMenu(Menu):
         self.puzzles = {}
         for hs in self.highscores:
             hs['Puzzle'] = hs['Puzzle'].split('/')[-1]
-            if not hs['Puzzle'] in self.puzzles:
+            if hs['Puzzle'] not in self.puzzles:
                 self.puzzles[hs['Puzzle']] = hs
             else:
                 puzzle = self.puzzles[hs['Puzzle']]
@@ -39,13 +39,15 @@ class HighScoreMenu(Menu):
 
     def render(self, term: Interface) -> str:
         """Render the highscore table and a button to add new highscore."""
-        rendered = []
-        rendered.append(
-            '    '
-            + set_string_length('Puzzle name', term.width - 40)
-            + set_string_length('Record holder', 32)
-            + '    ' + '\n'
-        )
+        rendered = [
+            (
+                '    '
+                + set_string_length('Puzzle name', term.width - 40)
+                + set_string_length('Record holder', 32)
+                + '    '
+                + '\n'
+            )
+        ]
 
         for i, puzzle in enumerate(self.puzzles):
             puzzle = self.puzzles[puzzle]
