@@ -47,7 +47,7 @@ def get_column_size(column_count: int, rows: List) -> List:
     :param rows:
     :return:
     """
-    column_size = [0 for i in range(column_count)]
+    column_size = [0 for _ in range(column_count)]
 
     for row in rows:
         for i in range(column_count):
@@ -67,10 +67,7 @@ def make_top_border(column_width: List[int]) -> str:
     i_max = len(column_width)
     for i in range(len(column_width)):
         my_string += f'{(column_width[i] + 2) * HORIZONTAL}'
-        if i < i_max - 1:
-            my_string += f'{TOP_SEPERATOR}'
-        else:
-            my_string += f'{TOP_RIGHT}'
+        my_string += f'{TOP_SEPERATOR}' if i < i_max - 1 else f'{TOP_RIGHT}'
     return my_string
 
 
@@ -84,10 +81,7 @@ def make_bottom_border(column_width: List[int]) -> str:
     i_max = len(column_width)
     for i in range(len(column_width)):
         my_string += f'{(column_width[i] + 2) * HORIZONTAL}'
-        if i < i_max - 1:
-            my_string += f'{BOTTOM_SEPERATOR}'
-        else:
-            my_string += f'{BOTTOM_RIGHT}'
+        my_string += f'{BOTTOM_SEPERATOR}' if i < i_max - 1 else f'{BOTTOM_RIGHT}'
     return my_string
 
 
@@ -101,10 +95,7 @@ def make_separator(column_width: List[int]) -> str:
     i_max = len(column_width)
     for i in range(len(column_width)):
         my_string += f'{(column_width[i] + 2) * HORIZONTAL}'
-        if i < i_max - 1:
-            my_string += f'{SEPERATOR_MIDDLE}'
-        else:
-            my_string += f'{SEPERATOR_RIGHT}'
+        my_string += f'{SEPERATOR_MIDDLE}' if i < i_max - 1 else f'{SEPERATOR_RIGHT}'
     return my_string
 
 
@@ -119,15 +110,13 @@ def make_row(column_count: int, column_width: List, centered: bool, row: List) -
     """
     my_string = VERTICAL
 
-    if centered:
-        for i in range(column_count):
-            fill_count = column_width[i] - len(str(row[i]))
+    for i in range(column_count):
+        fill_count = column_width[i] - len(str(row[i]))
+        if centered:
             left_fill = int(fill_count / 2)
             right_fill = fill_count - left_fill
             my_string += f" {left_fill * ' '}{row[i]}{right_fill * ' '} {VERTICAL}"
-    else:
-        for i in range(column_count):
-            fill_count = column_width[i] - len(str(row[i]))
+        else:
             my_string += f" {row[i]}{fill_count * ' '} {VERTICAL}"
 
     return my_string

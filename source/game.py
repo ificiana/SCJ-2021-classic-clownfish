@@ -34,8 +34,10 @@ class Game(Menu):
         rendered = term.move_y(3)  # just a spacing
 
         rendered += term.center(
-            f'Moves: {self.puzzle.moves_done}' + term.move_right(4) + f'Time {self.puzzle.time_needed}'
+            f'Moves: {self.puzzle.moves_done}{term.move_right(4)}'
+            + f'Time {self.puzzle.time_needed}'
         )
+
         rendered += term.move_down(1)
 
         for line in self.puzzle.draw(term).split('\n'):
@@ -48,14 +50,17 @@ class Game(Menu):
         if self.selected == 0:  # puzzle is active
             rendered += term.center('Use the arrow keys to move the pieces')
             rendered += term.center('Hit TAB to select "Exit"')
-            rendered += term.move_xy(4, term.height - 3) + 'Exit'
+            rendered += f'{term.move_xy(4, term.height - 3)}Exit'
         elif self.selected == 1:  # Exit button is selected
             rendered += term.center('Hit Enter to leave the puzzle')
             rendered += term.center('Hit TAB to go back to the puzzle')
             rendered += term.move_xy(4, term.height - 3) + term.black_on_white('Exit')
         elif self.selected == 2:  # puzzle is solved
             rendered += term.center(term.green_on_black('Congratulations, you completed the puzzle'))
-            rendered += term.center('Please put in your name for the highscore (letters only): ' + self.player_name)
+            rendered += term.center(
+                f'Please put in your name for the highscore (letters only): {self.player_name}'
+            )
+
 
         return rendered
 

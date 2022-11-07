@@ -28,7 +28,7 @@ class PuzzleSetting(Menu):
             # for _ in range(self.rows):
             #     rendered += term.center('│' + term.move_right(self.columns - 2) + '│')
             # rendered += term.center('└' + '─' * (self.columns - 2) + '┘')
-        elif self.selected in range(10, 17, 1):
+        elif self.selected in range(10, 17):
             rendered += term.center('Pick the number of puzzle pieces')
             rendered += self.__puzzle_pieces(term)
         else:
@@ -59,7 +59,7 @@ class PuzzleSetting(Menu):
             elif self.selected == 6:
                 self.columns = 90
             self.rows = int(self.columns ** 0.43)
-        elif self.selected in range(10, 17, 1):  # settings for number puzzle pieces
+        elif self.selected in range(10, 17):  # settings for number puzzle pieces
             if self.selected == 10:
                 self.horizontal = 2
                 self.vertical = 2

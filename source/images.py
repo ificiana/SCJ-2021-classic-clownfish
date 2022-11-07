@@ -30,11 +30,10 @@ class Image:
         """
         self.file = file
         self.image = PIL.Image.open(file).convert("L")
-        if not (cols and scale):
+        if not cols or not scale:
             raise ValueError("Columns and Scale value can not be 0")
-        else:
-            self.cols = cols
-            self.scale = scale
+        self.cols = cols
+        self.scale = scale
         self.shade = {
             "str": shade_str,
             "str_len": len(shade_str),

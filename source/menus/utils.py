@@ -68,4 +68,4 @@ def set_string_length(string: str, length: int) -> str:
     elif len(string) < length:
         return string + ' ' * (length - len(string))
     else:  # len(string) > length
-        return string[:length - 3] + '...'
+        return f'{string[:length - 3]}...'

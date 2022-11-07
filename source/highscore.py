@@ -36,24 +36,23 @@ class Highscore:
         :return: Returns the highscore as a table
         """
         # get highscores for requested puzzle
-        highscore = []
-        for entry in self.highscore:
-            if entry['Puzzle'] == puzzle:
-                highscore.append(entry)
-        if len(highscore) == 0:
+        highscore = [entry for entry in self.highscore if entry['Puzzle'] == puzzle]
+        if not highscore:
             return 'No highscore for this puzzle available.'
 
         # sort the highscore
-        if sort == 'Time':
-            highscore = sorted(highscore, key=itemgetter('Time'))
-        elif sort == 'Moves':
+        if sort == 'Moves':
             highscore = sorted(highscore, key=itemgetter('Moves'))
 
-        table = make_table(
-            rows=[[entry['Puzzle'], entry['Name'], entry['Time'], entry['Moves']] for entry in highscore],
-            labels=['Puzzle', 'Name', 'Time', 'Moves'])
-
-        return table
+        elif sort == 'Time':
+            highscore = sorted(highscore, key=itemgetter('Time'))
+        return make_table(
+            rows=[
+                [entry['Puzzle'], entry['Name'], entry['Time'], entry['Moves']]
+                for entry in highscore
+            ],
+            labels=['Puzzle', 'Name', 'Time', 'Moves'],
+        )
 
     def delete(self) -> None:
         """Deletes all highscores"""
